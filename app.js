@@ -10,6 +10,7 @@ const debug = require("debug")("mymoneymydebt-backend:server");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var authRouter = require("./routes/auth");
+const debtRouter = require("./routes/debts");
 
 var app = express();
 
@@ -31,7 +32,7 @@ process.on("unhandledRejection", (ex) => {
   process.quit();
 });
 
-if (!config.get("debtmanager_jwtPrivateToken")) {
+if (!config.get("debtmanager_jwtPrivateKey")) {
   throw new Error("FATAL ERROR: jwtPrivateToken key not found");
 }
 
@@ -55,6 +56,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/auth", authRouter);
+app.use("/debts", debtRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
