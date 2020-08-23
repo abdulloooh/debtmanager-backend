@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
+const verifyOwner = require("../middlewares/ownership");
 const _ = require("lodash");
 const { Debt, validateDebt, formatReturningData } = require("../models/debt");
 
@@ -45,25 +46,27 @@ router.post("/", auth, async (req, res) => {
   res.send(formatReturningData(debt));
 });
 
-router.put("/:id", auth, async (req, res) => {
-  const debt = await Debt.findOne({ _id: req.params.id }); //get debt
-  if (!debt) return res.status(400).send("Data not found");
-
-  if (String(debt.user) !== req.user._id)
-    return res.status(403).send("Unauthorized"); //confim id
-
+router.put("/:id", auth, verifyOwner, async (req, res) => {
   const { error } = validateDebt(req.body); //Joi validation
   if (error) return res.status(400).send(error.details[0].message);
 
   const { name, description, amount, dateIncurred, dateDue, status } = req.body;
+
+  const debt = req.debt;
   debt.name = name;
   debt.description = description;
   debt.amount = amount;
-  debt.dateIncurred = dateIncurred;
-  if (dateDue) debt.dateDue = dateDue;
+  if (debt.dateIncurred) debt.dateIncurred = dateIncurred;
+  if (debt.dateDue) debt.dateDue = dateDue;
   debt.status = status;
 
   await debt.save();
+
+  res.send(formatReturningData(debt));
+});
+
+router.delete("/:id", auth, verifyOwner, async (req, res) => {
+  const debt = await Debt.findByIdAndDelete(req.debt._id);
 
   res.send(formatReturningData(debt));
 });
