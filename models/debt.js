@@ -8,7 +8,7 @@ const debtSchema = new mongoose.Schema({
   dateIncurred: { type: Date, default: Date.now, maxlength: 255 },
   dateDue: { type: Date, maxlength: 255 },
   status: { type: String, minlength: 2, maxlength: 2, required: true },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", lowercase: true },
 });
 
 const Debt = mongoose.model("Debt", debtSchema);
@@ -22,6 +22,8 @@ function validateDebt(debt) {
     dateDue: Joi.date(),
     status: Joi.string().min(2).max(2).required(),
   });
+
+  return schema.validate(debt);
 }
 
 module.exports = { Debt, validateDebt };

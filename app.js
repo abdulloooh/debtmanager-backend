@@ -22,13 +22,13 @@ process.quit = () => {
 
 process.on("uncaughtException", (ex) => {
   //log error
-  debug(ex);
+  debug(ex.message);
   process.quit();
 });
 
 process.on("unhandledRejection", (ex) => {
   //log error
-  debug(ex);
+  debug(ex.message);
   process.quit();
 });
 
