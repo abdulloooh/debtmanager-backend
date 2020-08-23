@@ -10,9 +10,18 @@ router.get("/", auth, async (req, res) => {
     .populate("user", "username")
     .sort("dateDue")
     .skip(0)
-    .limit(200);
+    .limit(500);
 
-  res.send(debts);
+  let formattedDebts = [];
+  debts.forEach((debt) => {
+    let clone = { ...debt._doc };
+    if (clone.dateIncurred)
+      clone.dateIncurred = new Date(debt.dateIncurred).toDateString();
+    if (clone.dateDue) clone.dateDue = new Date(debt.dateDue).toDateString();
+    formattedDebts.push(clone);
+  });
+
+  res.send(formattedDebts);
 });
 
 router.post("/", auth, async (req, res) => {
