@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
+const config = require("config");
 module.exports = function (debug) {
   mongoose
-    .connect("mongodb://localhost/debtmanager", {
+    .connect(config.get("db_conn"), {
       reconnectTries: 5000,
       useNewUrlParser: true,
       useUnifiedTopology: true,

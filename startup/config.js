@@ -7,4 +7,7 @@ module.exports = function (app, path) {
   if (!config.get("debtmanager_jwtPrivateKey")) {
     throw new Error("FATAL ERROR: jwtPrivateToken key not found");
   }
+  if (!config.get("db_conn")) {
+    throw new Error("FATAL ERROR: db not configured");
+  }
 };

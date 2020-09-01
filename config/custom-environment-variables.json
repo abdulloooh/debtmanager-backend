@@ -1,3 +1,4 @@
 {
-  "debtmanager_jwtPrivateKey": "jwtPrivateToken"
+  "debtmanager_jwtPrivateKey": "jwtPrivateToken",
+  "db_conn": "db"
 }
