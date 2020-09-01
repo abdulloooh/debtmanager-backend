@@ -15,11 +15,11 @@ module.exports = function (express, app, path) {
   app.use(cookieParser());
   app.use(express.static(path.join(__dirname, "public")));
 
-  app.use("/", indexRouter);
-  app.use("/users", usersRouter);
-  app.use("/auth", authRouter);
-  app.use("/debts", debtRouter);
-  app.use("/summary", summaryRouter);
+  app.use("/api", indexRouter);
+  app.use("/api/users", usersRouter);
+  app.use("/api/auth", authRouter);
+  app.use("/api/debts", debtRouter);
+  app.use("/api/summary", summaryRouter);
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {
