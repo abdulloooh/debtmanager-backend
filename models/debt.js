@@ -37,7 +37,7 @@ function validateDebt(debt) {
 
 function formatReturningData(data) {
   return {
-    ..._.pick(data, ["name", "description", "amount", "status"]),
+    ..._.pick(data, ["_id", "name", "description", "amount", "status"]),
     dateIncurred:
       data.dateIncurred && new Date(data.dateIncurred).toDateString(),
     dateDue: data.dateDue && new Date(data.dateDue).toDateString(),

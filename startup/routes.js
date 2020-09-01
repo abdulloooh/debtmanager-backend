@@ -6,6 +6,7 @@ const indexRouter = require("../routes/index");
 const usersRouter = require("../routes/users");
 const authRouter = require("../routes/auth");
 const debtRouter = require("../routes/debts");
+const summaryRouter = require("../routes/summary");
 
 module.exports = function (express, app, path) {
   app.use(logger("dev"));
@@ -18,6 +19,7 @@ module.exports = function (express, app, path) {
   app.use("/users", usersRouter);
   app.use("/auth", authRouter);
   app.use("/debts", debtRouter);
+  app.use("/summary", summaryRouter);
 
   // catch 404 and forward to error handler
   app.use(function (req, res, next) {

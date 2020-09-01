@@ -8,7 +8,6 @@ const { Debt, validateDebt, formatReturningData } = require("../models/debt");
 router.get("/", auth, async (req, res) => {
   const debts = await Debt.find({ user: req.user._id })
     .select("-__v -user")
-    .populate("user", "username")
     .sort("dateDue")
     .skip(0)
     .limit(500);
@@ -23,6 +22,10 @@ router.get("/", auth, async (req, res) => {
   });
 
   res.send(formattedDebts);
+});
+
+router.get("/:id", auth, verifyOwner, async (req, res) => {
+  res.send(formatReturningData(req.debt));
 });
 
 router.post("/", auth, async (req, res) => {
