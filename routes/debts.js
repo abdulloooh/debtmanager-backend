@@ -3,7 +3,12 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const verifyOwner = require("../middlewares/ownership");
 const _ = require("lodash");
-const { Debt, validateDebt, formatReturningData } = require("../models/debt");
+const {
+  Debt,
+  validateDebt,
+  formatReturningData,
+  calculateTotal,
+} = require("../models/debt");
 
 router.get("/", auth, async (req, res) => {
   const debts = await Debt.find({ user: req.user._id })
@@ -20,7 +25,7 @@ router.get("/", auth, async (req, res) => {
     if (clone.dateDue) clone.dateDue = new Date(debt.dateDue).toDateString();
     formattedDebts.push(clone);
   });
-
+  formattedDebts = calculateTotal(formattedDebts);
   res.send(formattedDebts);
 });
 

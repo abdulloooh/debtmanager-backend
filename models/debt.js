@@ -44,4 +44,30 @@ function formatReturningData(data) {
   };
 }
 
-module.exports = { Debt, validateDebt, formatReturningData };
+function calculateTotal(debts) {
+  let drTotal = 0,
+    crTotal = 0;
+  for (let d of debts) {
+    if (d.status.toLowerCase() === "dr") drTotal = drTotal + Number(d.amount);
+    else if (d.status.toLowerCase() === "cr")
+      crTotal = crTotal + Number(d.amount);
+  }
+  debts.push({
+    _id: "debittotal",
+    name: "Total",
+    amount: drTotal,
+    common: "total",
+    status: "dr",
+  });
+  debts.push({
+    _id: "credittotal",
+    name: "Total",
+    amount: crTotal,
+    common: "total",
+    status: "cr",
+  });
+
+  return debts;
+}
+
+module.exports = { Debt, validateDebt, formatReturningData, calculateTotal };
