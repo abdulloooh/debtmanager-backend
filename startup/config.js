@@ -5,7 +5,11 @@ module.exports = function (app, path) {
   app.set("views", path.join(`${__dirname}/../`, "views"));
   app.set("view engine", "jade");
 
-  app.use(cors())
+  const corsOptions = {
+  	exposedHeaders: 'x-auth-token'
+  }
+
+  app.use(cors(corsOptions))
 
   if (!config.get("debtmanager_jwtPrivateKey")) {
     throw new Error("FATAL ERROR: jwtPrivateToken key not found");

@@ -11,12 +11,12 @@ router.post("/", async (req, res, next) => {
   let user = await User.findOne({ username: req.body.username }); //check if user exists
   if (user) return res.status(400).send("Username taken");
 
+  if(req.body.username === req.body.password) return res.status(400).send("Use a more secure password");
+
   user = new User(req.body, _.pick(["username", "password"])); //create new user
 
-  if (user.password) {
-    const salt = await bcrypt.genSalt(10);
-    user.password = await bcrypt.hash(req.body.password, salt); //hash password
-  }
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(req.body.password, salt); //hash password
 
   await user.save();
 
