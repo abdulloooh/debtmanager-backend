@@ -5,7 +5,7 @@ const config = require("config");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, minlength: 3, maxlength: 50, required: true },
-  password: { type: String, minlength: 7, maxlength: 255 },
+  password: { type: String, minlength: 7, maxlength: 255, required: true },
 });
 
 userSchema.methods.generateJwtToken = function () {
@@ -19,8 +19,8 @@ const User = mongoose.model("User", userSchema);
 
 function validateUser(user) {
   const schema = Joi.object({
-    username: Joi.string().min(3).max(50).required(),
-    password: Joi.string().min(3).max(255),
+    username: Joi.string().min(3).max(30).required(),
+    password: Joi.string().min(3).max(255).required(),
   });
 
   return schema.validate(user);
