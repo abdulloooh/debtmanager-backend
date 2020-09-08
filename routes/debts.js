@@ -64,8 +64,8 @@ router.put("/:id", auth, verifyOwner, async (req, res) => {
   debt.name = name;
   debt.description = description;
   debt.amount = amount;
-  if (debt.dateIncurred) debt.dateIncurred = dateIncurred;
-  if (debt.dateDue) debt.dateDue = dateDue;
+  if (dateIncurred) debt.dateIncurred = dateIncurred;
+  if (dateDue) debt.dateDue = dateDue;
   debt.status = status;
 
   await debt.save();
