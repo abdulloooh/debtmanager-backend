@@ -34,7 +34,7 @@
 2. Clone the repo
 
 ```sh
-git clone https://github.com/abdulloooh/debtmanager.git
+git clone https://github.com/abdulloooh/debtmanager-backend.git
 ```
 
 3. Install NPM packages
@@ -59,7 +59,7 @@ npm run dev
 
 ## Roadmap
 
-See the [open issues](https://github.com/abdulloooh/debtmanager/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/abdulloooh/debtmanager-backend/issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
