@@ -66,6 +66,7 @@ router.delete("/", auth, async (req, res, next) => {
   }
 
   res.sendStatus(200);
+  res.end();
 });
 
 module.exports = router;
