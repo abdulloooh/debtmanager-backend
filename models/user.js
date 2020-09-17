@@ -11,7 +11,8 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateJwtToken = function () {
   return jwt.sign(
     { _id: this._id, username: this.username },
-    config.get("debtmanager_jwtPrivateKey")
+    config.get("debtmanager_jwtPrivateKey"),
+    { expiresIn: "5 days" }
   );
 };
 

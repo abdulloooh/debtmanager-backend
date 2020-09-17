@@ -8,6 +8,8 @@ module.exports = function (req, res, next) {
     req.user = jwt.verify(token, config.get("debtmanager_jwtPrivateKey"));
     next();
   } catch (ex) {
-    return res.status(400).send("Invalid token");
+    let errMessage = "";
+    if (ex.message === "jwt expired") errMessage = "Please log in again";
+    return res.status(400).send(errMessage || "Invalid request");
   }
 };
