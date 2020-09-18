@@ -20,9 +20,12 @@ router.post("/", async (req, res, next) => {
   const token = user.generateJwtToken();
 
   res
-    .cookie("x-auth-token", token, {
+    .cookie("x_auth_token", token, {
       httpOnly: true,
+      domain: "http://localhost:3000",
       secure: app.get("env") === "development" ? false : true,
+      // sameSite: "none",
+      // path: "/",
     })
     .send(_.pick(user, ["username"]));
 });

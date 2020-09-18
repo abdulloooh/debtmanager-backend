@@ -26,12 +26,11 @@ router.post("/", async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res
-    .cookie("x-auth-token", token, {
-      httpOnly: true,
-      secure: app.get("env") === "development" ? false : true,
-    })
-    .send(_.pick(user, ["username"]));
+  res.cookie("x_auth_token", token, {
+    httpOnly: true,
+    secure: app.get("env") === "development" ? false : true,
+  });
+  res.send(_.pick(user, ["username"]));
 });
 
 router.put("/", auth, async (req, res, next) => {
@@ -56,7 +55,7 @@ router.put("/", auth, async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x-auth-token", token).send(_.pick(user, ["username"]));
+  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
 });
 
 router.delete("/", auth, async (req, res, next) => {

@@ -1,5 +1,5 @@
 {
   "debtmanager_jwtPrivateKey": "",
   "db_conn": "",
-  "origin": "http://localhost:3001"
+  "origin": "http://localhost:3000"
 }
