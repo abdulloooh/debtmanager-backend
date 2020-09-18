@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const app = express();
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { User, validateUser } = require("../models/user");
