@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const app = express();
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const auth = require("../middlewares/auth");
@@ -25,7 +26,12 @@ router.post("/", async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x-auth-token", token).send(_.pick(user, ["username"]));
+  res
+    .cookie("x-auth-token", token, {
+      httpOnly: true,
+      secure: app.get("env") === "development" ? false : true,
+    })
+    .send(_.pick(user, ["username"]));
 });
 
 router.put("/", auth, async (req, res, next) => {
