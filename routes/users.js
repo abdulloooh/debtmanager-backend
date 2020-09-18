@@ -25,7 +25,7 @@ router.post("/", async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x-auth-token", token).send(_.pick(user, ["username"]));
+  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
 });
 
 router.put("/", auth, async (req, res, next) => {
@@ -50,7 +50,7 @@ router.put("/", auth, async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x-auth-token", token).send(_.pick(user, ["username"]));
+  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
 });
 
 router.delete("/", auth, async (req, res, next) => {
