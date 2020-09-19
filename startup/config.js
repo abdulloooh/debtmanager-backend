@@ -6,7 +6,9 @@ module.exports = function (app, path) {
   app.set("view engine", "jade");
 
   const corsOptions = {
-    exposedHeaders: "x_auth_token",
+    // exposedHeaders: "x_auth_token",
+    origin: config.get("origin"),
+    credentials: true,
   };
 
   app.use(cors(corsOptions));

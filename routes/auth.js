@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const app = express();
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const { User, validateUser } = require("../models/user");
@@ -18,7 +19,13 @@ router.post("/", async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  // res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  res
+    .cookie("access_token", token, {
+      httpOnly: true,
+      secure: app.get("env") === "development" ? false : true,
+    })
+    .send(_.pick(user, ["username"]));
 });
 
 module.exports = router;

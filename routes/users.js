@@ -1,5 +1,6 @@
 var express = require("express");
 var router = express.Router();
+const app = express();
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const auth = require("../middlewares/auth");
@@ -25,7 +26,12 @@ router.post("/", async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  // res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  res.cookie("access_token", token, {
+    httpOnly: true,
+    secure: app.get("env") === "development" ? false : true,
+  });
+  res.send(_.pick(user, ["username"]));
 });
 
 router.put("/", auth, async (req, res, next) => {
@@ -50,7 +56,13 @@ router.put("/", auth, async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  // res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  res
+    .cookie("access_token", token, {
+      httpOnly: true,
+      secure: app.get("env") === "development" ? false : true,
+    })
+    .send(_.pick(user, ["username"]));
 });
 
 router.delete("/", auth, async (req, res, next) => {
@@ -65,6 +77,7 @@ router.delete("/", auth, async (req, res, next) => {
     debt = await Debt.findOneAndRemove({ user: req.user._id });
   }
 
+  res.clearCookie("access_token");
   res.sendStatus(200);
   res.end();
 });
