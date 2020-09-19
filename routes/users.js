@@ -26,7 +26,7 @@ router.post("/", async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.cookie("x_auth_token", token, {
+  res.cookie("access_token", token, {
     httpOnly: true,
     secure: app.get("env") === "development" ? false : true,
   });
@@ -55,7 +55,13 @@ router.put("/", auth, async (req, res, next) => {
 
   const token = user.generateJwtToken();
 
-  res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  // res.header("x_auth_token", token).send(_.pick(user, ["username"]));
+  res
+    .cookie("access_token", token, {
+      httpOnly: true,
+      secure: app.get("env") === "development" ? false : true,
+    })
+    .send(_.pick(user, ["username"]));
 });
 
 router.delete("/", auth, async (req, res, next) => {
@@ -70,6 +76,7 @@ router.delete("/", auth, async (req, res, next) => {
     debt = await Debt.findOneAndRemove({ user: req.user._id });
   }
 
+  res.clearCookie("access_token");
   res.sendStatus(200);
   res.end();
 });

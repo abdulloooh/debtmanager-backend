@@ -20,7 +20,7 @@ router.post("/", async (req, res, next) => {
   const token = user.generateJwtToken();
 
   res
-    .cookie("x_auth_token", token, {
+    .cookie("access_token", token, {
       httpOnly: true,
       secure: app.get("env") === "development" ? false : true,
     })

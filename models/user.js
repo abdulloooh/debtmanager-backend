@@ -8,11 +8,11 @@ const userSchema = new mongoose.Schema({
   password: { type: String, minlength: 7, maxlength: 255, required: true },
 });
 
-userSchema.methods.generateJwtToken = function () {
+userSchema.methods.generateJwtToken = function (expireOverride) {
   return jwt.sign(
     { _id: this._id, username: this.username },
     config.get("debtmanager_jwtPrivateKey"),
-    { expiresIn: "5 days" }
+    { expiresIn: expireOverride || "5 days" }
   );
 };
 
