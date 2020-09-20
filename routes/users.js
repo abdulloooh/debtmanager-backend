@@ -103,4 +103,21 @@ router.delete("/", auth, async (req, res, next) => {
   res.end();
 });
 
+router.post("/forgetpassword", async (req, res) => {
+  const data = { ...req.body };
+
+  const schema = Joi.object({
+    username: Joi.string().min(3).max(30).required(),
+    email: Joi.string().email().required(),
+  });
+
+  const { error } = schema.validate(data);
+  if (error) return res.status(406).send(error.details[0].message);
+
+  let user = await User.findOne({ email: data.email });
+  if (user) {
+    //generate email and send
+  }
+  res.status(200).send("ok");
+});
 module.exports = router;

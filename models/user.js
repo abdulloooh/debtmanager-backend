@@ -6,7 +6,7 @@ const config = require("config");
 const userSchema = new mongoose.Schema({
   username: { type: String, minlength: 3, maxlength: 50, required: true },
   email: { type: String },
-  password: { type: String, minlength: 7, maxlength: 255, required: true },
+  password: { type: String, minlength: 7, maxlength: 255 },
 });
 
 userSchema.methods.generateJwtToken = function () {
