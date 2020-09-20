@@ -29,7 +29,7 @@ router.post("/", async (req, res, next) => {
   // res.header("x_auth_token", token).send(_.pick(user, ["username"]));
   res.cookie("access_token", token, {
     httpOnly: true,
-    secure: app.get("env") === "development" ? false : true,
+    // secure: app.get("env") === "development" ? false : true,
   });
   res.send(_.pick(user, ["username"]));
 });
@@ -60,7 +60,7 @@ router.put("/", auth, async (req, res, next) => {
   res
     .cookie("access_token", token, {
       httpOnly: true,
-      secure: app.get("env") === "development" ? false : true,
+      // secure: app.get("env") === "development" ? false : true,
     })
     .send(_.pick(user, ["username"]));
 });
