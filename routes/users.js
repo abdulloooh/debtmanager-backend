@@ -1,11 +1,13 @@
 var express = require("express");
 var router = express.Router();
 const app = express();
+const Joi = require("@hapi/joi");
 const bcrypt = require("bcrypt");
 const _ = require("lodash");
 const auth = require("../middlewares/auth");
 const { validateUser, User } = require("../models/user");
 const { Debt } = require("../models/debt");
+const sendMail = require("../models/mail");
 
 router.post("/", async (req, res, next) => {
   const { error } = validateUser(req.body); //validate
@@ -114,10 +116,13 @@ router.post("/forgetpassword", async (req, res) => {
   const { error } = schema.validate(data);
   if (error) return res.status(406).send(error.details[0].message);
 
-  let user = await User.findOne({ email: data.email });
+  let user = await User.findOne({
+    $and: [{ email: data.email }, { username: data.username }],
+  });
   if (user) {
-    //generate email and send
-  }
+    sendMail();
+    console.log("sent");
+  } else console.log("e no dey");
   res.status(200).send("ok");
 });
 module.exports = router;

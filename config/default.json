@@ -1,5 +1,6 @@
 {
   "debtmanager_jwtPrivateKey": "",
   "db_conn": "",
-  "origin": "http://localhost:3000"
+  "origin": "http://localhost:3000",
+  "SENDGRID_API_KEY": ""
 }

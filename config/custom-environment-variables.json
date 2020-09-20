@@ -1,4 +1,5 @@
 {
   "debtmanager_jwtPrivateKey": "jwtPrivateToken",
-  "db_conn": "db"
+  "db_conn": "db",
+  "SENDGRID_API_KEY": "SENDGRID_API_KEY"
 }
