@@ -7,7 +7,7 @@ module.exports = function (app, path) {
 
   const corsOptions = {
     // exposedHeaders: "x_auth_token",
-    origin: /*config.get("origin")*/ "http://localhost:3000",
+    origin: config.get("origin"),
     credentials: true,
   };
 
