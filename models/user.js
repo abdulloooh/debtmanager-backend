@@ -5,14 +5,15 @@ const config = require("config");
 
 const userSchema = new mongoose.Schema({
   username: { type: String, minlength: 3, maxlength: 50, required: true },
+  email: { type: String },
   password: { type: String, minlength: 7, maxlength: 255, required: true },
 });
 
-userSchema.methods.generateJwtToken = function (expireOverride) {
+userSchema.methods.generateJwtToken = function () {
   return jwt.sign(
     { _id: this._id, username: this.username },
     config.get("debtmanager_jwtPrivateKey"),
-    { expiresIn: expireOverride || "5 days" }
+    { expiresIn: "5 days" }
   );
 };
 
@@ -21,6 +22,7 @@ const User = mongoose.model("User", userSchema);
 function validateUser(user) {
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
+    email: Joi.string().email(),
     password: Joi.string().min(3).max(255).required(),
   });
 
