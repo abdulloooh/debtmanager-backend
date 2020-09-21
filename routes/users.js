@@ -11,14 +11,14 @@ const sendMail = require("../models/mail");
 
 router.post("/", async (req, res, next) => {
   const { error } = validateUser(req.body); //validate
-  if (error) return res.status(406).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({
     $or: [{ username: req.body.username }, { email: req.body.email }],
   });
   if (user)
     return res
-      .status(406)
+      .status(400)
       .send(
         "User with same details already existed, try changing your username"
       );
@@ -110,19 +110,66 @@ router.post("/forgetpassword", async (req, res) => {
 
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
-    email: Joi.string().email().required(),
+    email: Joi.string().email().required().required(),
   });
 
   const { error } = schema.validate(data);
-  if (error) return res.status(406).send(error.details[0].message);
+  if (error) return res.status(400).send(error.details[0].message);
+
+  let user = await User.findOne({ email: data.email, username: data.username });
+  if (user) {
+    user.generatePasswordReset();
+    await user.save();
+
+    const link =
+      req.get("origin") + "/password-reset/" + user.resetPasswordToken;
+    const message = `
+    <div>
+      Hi ${user.username} <br/><br/> 
+      Please click on the this <a target="_blank" href="${link}">link</a> link to reset your password. <br/>
+      If you did not request this, please ignore this email and your password will remain unchanged.<br/><br/>
+      Regards,\n
+      Abdullah from Sanwo
+    </div>`;
+    sendMail(user.email, "Sanwo Password Reset", message);
+  }
+  //if not: all the best, pretend as if you have sent it to his email
+  //that is just for security purpose, do not let him know the email does not exist
+  res.sendStatus(200);
+});
+
+router.post("/passwordreset", async (req, res) => {
+  /**
+   * Expecting: new password and reset token
+   * Validate password
+   * Search for user with that reset token and ensure it has not expired
+   * Change password
+   * Respond success
+   */
+  const data = { ...req.body };
+
+  const schema = Joi.object({
+    password: Joi.string().min(3).max(255).required(),
+    resetPasswordToken: Joi.string().min(20).max(10).max(30).required(),
+  });
+
+  const { error } = schema.validate(data);
+  if (error) return res.status(400).send(error.details[0].message);
 
   let user = await User.findOne({
-    $and: [{ email: data.email }, { username: data.username }],
+    resetPasswordToken: data.resetPasswordToken,
+    resetPasswordExpires: { $gt: Date.now() },
   });
-  if (user) {
-    sendMail();
-    console.log("sent");
-  } else console.log("e no dey");
-  res.status(200).send("ok");
+
+  if (!user) return res.status(401).send("Invalid or expired reset token");
+
+  user.password = data.password;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+
+  await user.save();
+
+  res.sendStatus(200);
 });
+
 module.exports = router;

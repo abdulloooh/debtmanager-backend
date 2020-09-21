@@ -2,6 +2,7 @@ const Joi = require("@hapi/joi");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const config = require("config");
+const crypto = require("crypto");
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -13,6 +14,8 @@ const userSchema = new mongoose.Schema({
   },
   email: { type: String, lowercase: true },
   password: { type: String, minlength: 7, maxlength: 255 },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date,
 });
 
 userSchema.methods.generateJwtToken = function () {
@@ -21,6 +24,11 @@ userSchema.methods.generateJwtToken = function () {
     config.get("debtmanager_jwtPrivateKey"),
     { expiresIn: "5 days" }
   );
+};
+
+userSchema.methods.generatePasswordReset = function () {
+  this.resetPasswordToken = crypto.randomBytes(20).toString("hex");
+  this.resetPasswordExpires = Date.now() + 900000; //expires in 15 minutes
 };
 
 const User = mongoose.model("User", userSchema);
