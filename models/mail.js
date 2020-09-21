@@ -7,7 +7,10 @@ module.exports = async function (mailTo, subject, message) {
 
     const msg = {
       to: mailTo,
-      from: config.get("mailFrom"),
+      from: {
+        email: config.get("mailFrom"),
+        name: config.get("mailName"),
+      },
       subject: subject,
       // text: text,
       html: message,

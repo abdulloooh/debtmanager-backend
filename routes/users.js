@@ -125,10 +125,10 @@ router.post("/forgetpassword", async (req, res) => {
       req.get("origin") + "/password-reset/" + user.resetPasswordToken;
     const message = `
     <div>
-      Hi ${user.username} <br/><br/> 
+      Hi ${user.username}, <br/><br/> 
       Please click on the this <a target="_blank" href="${link}">link</a> link to reset your password. <br/>
       If you did not request this, please ignore this email and your password will remain unchanged.<br/><br/>
-      Regards,\n
+      Regards,<br/>
       Abdullah from Sanwo
     </div>`;
     sendMail(user.email, "Sanwo Password Reset", message);
@@ -150,7 +150,7 @@ router.post("/passwordreset", async (req, res) => {
 
   const schema = Joi.object({
     password: Joi.string().min(3).max(255).required(),
-    resetPasswordToken: Joi.string().min(20).max(10).max(30).required(),
+    resetPasswordToken: Joi.string().min(1).max(255).required(),
   });
 
   const { error } = schema.validate(data);
@@ -161,13 +161,26 @@ router.post("/passwordreset", async (req, res) => {
     resetPasswordExpires: { $gt: Date.now() },
   });
 
-  if (!user) return res.status(401).send("Invalid or expired reset token");
+  if (!user) return res.status(401).send("Invalid or expired token");
 
-  user.password = data.password;
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(data.password, salt); //hash password
+
   user.resetPasswordToken = undefined;
   user.resetPasswordExpires = undefined;
 
   await user.save();
+
+  const message = `
+  <div>
+    Hi ${user.username}, <br/><br/> 
+    Your password has been changed succesfully. <br/>
+    Kindly reply to this mail if you need further assistance. <br/><br/>
+
+    Regards,<br/>
+    Abdullah from Sanwo
+  </div>`;
+  sendMail(user.email, "Password Reset Successful", message);
 
   res.sendStatus(200);
 });

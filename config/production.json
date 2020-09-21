@@ -3,5 +3,6 @@
   "db_conn": "",
   "origin": "https://sanwo.live",
   "SENDGRID_API_KEY": "",
-  "mailFrom": ""
+  "mailFrom": "",
+  "mailName": ""
 }

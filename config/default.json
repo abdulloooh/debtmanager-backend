@@ -3,5 +3,6 @@
   "db_conn": "",
   "origin": "http://localhost:3000",
   "SENDGRID_API_KEY": "",
-  "mailFrom": ""
+  "mailFrom": "",
+  "mailName": ""
 }
