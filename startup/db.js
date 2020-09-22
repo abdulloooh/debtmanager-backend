@@ -7,5 +7,8 @@ module.exports = function (debug) {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
-    .then(() => debug("connected to mongodb successfully..."));
+    .then(() => {
+      debug("connected to mongodb successfully...");
+      require("../cron-job")(); //after database is ready
+    });
 };
