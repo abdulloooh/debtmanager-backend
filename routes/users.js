@@ -125,11 +125,11 @@ router.post("/forgetpassword", async (req, res) => {
       req.get("origin") + "/password-reset/" + user.resetPasswordToken;
     const message = `
     <div>
-      Hi ${user.username}, <br/><br/> 
+      <strong>Hi ${user.username}</strong> <br/><br/> 
       Please click on the this <a target="_blank" href="${link}">link</a> link to reset your password. <br/>
       If you did not request this, please ignore this email and your password will remain unchanged.<br/><br/>
-      Regards,<br/>
-      Abdullah from Sanwo
+      <br/>
+      <strong><em>Sanwo</em></strong>
     </div>`;
     await sendMail(user.email, "Sanwo Password Reset", message);
   }
@@ -173,12 +173,11 @@ router.post("/passwordreset", async (req, res) => {
 
   const message = `
   <div>
-    Hi ${user.username}, <br/><br/> 
+    <strong>Hi ${user.username}</strong> <br/><br/> 
     Your password has been changed succesfully. <br/>
     Kindly reply to this mail if you need further assistance. <br/><br/>
 
-    Regards,<br/>
-    Abdullah from Sanwo
+    <strong><i>Sanwo 💰 </i></strong>
   </div>`;
   await sendMail(user.email, "Password Reset Successful", message);
 

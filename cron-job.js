@@ -37,10 +37,13 @@ module.exports = function () {
         subject: `Your Due Debts as at ${todayDate} - from Sanwo`,
         html: `
         <div>
-          Hi ${o.username.toUpperCase()}, <br/><br/>
-          Below is the list of all your due debts as at today ${todayDate}, 
-          consider checking them out to pay your own debts and remind those 
-          owing you to pay up likewise. Mark them complete by simply deleting 
+          <strong>Hi ${o.username.toUpperCase()}</strong> <br/><br/>
+          Below is the list of all your due debts as at today <strong>${todayDate}</strong> <br/><br/>
+          
+          Consider checking them out to pay your own debts and remind those 
+          owing you to pay up likewise <br/><br/> 
+          
+          Mark them complete by simply deleting 
           them using the links provided below. <br/><br/>
           
           <table>
@@ -50,7 +53,7 @@ module.exports = function () {
           ${formatDebtTable(o.details)}
             
           </table> <br/><br/>
-          Best regards, <br/> Abdullah from Sanwo
+          <strong><em>Sanwo</em></strong>
         </div>
         `,
       };
