@@ -7,7 +7,7 @@ const _ = require("lodash");
 const auth = require("../middlewares/auth");
 const { validateUser, User } = require("../models/user");
 const { Debt } = require("../models/debt");
-const sendMail = require("../models/mail");
+const { sendMail } = require("../models/mail");
 
 router.post("/", async (req, res, next) => {
   const { error } = validateUser(req.body); //validate
@@ -131,7 +131,7 @@ router.post("/forgetpassword", async (req, res) => {
       Regards,<br/>
       Abdullah from Sanwo
     </div>`;
-    sendMail(user.email, "Sanwo Password Reset", message);
+    await sendMail(user.email, "Sanwo Password Reset", message);
   }
   //if not: all the best, pretend as if you have sent it to his email
   //that is just for security purpose, do not let him know the email does not exist
@@ -180,7 +180,7 @@ router.post("/passwordreset", async (req, res) => {
     Regards,<br/>
     Abdullah from Sanwo
   </div>`;
-  sendMail(user.email, "Password Reset Successful", message);
+  await sendMail(user.email, "Password Reset Successful", message);
 
   res.sendStatus(200);
 });
