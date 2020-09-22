@@ -34,7 +34,7 @@ module.exports = function () {
     orderedDebts.map((o) => {
       const newMailDetail = {
         mailTo: o.email,
-        subject: `Your Due Debts as at ${todayDate} - from Sanwo`,
+        subject: `Your Due Debts as at ${todayDate} - Sanwo`,
         html: `
         <div>
           <strong>Hi ${o.username.toUpperCase()}</strong> <br/><br/>
@@ -53,7 +53,7 @@ module.exports = function () {
           ${formatDebtTable(o.details)}
             
           </table> <br/><br/>
-          <strong><em>Sanwo</em></strong>
+          <strong><em>Sanwo 💰 </em></strong>
         </div>
         `,
       };

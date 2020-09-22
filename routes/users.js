@@ -129,7 +129,7 @@ router.post("/forgetpassword", async (req, res) => {
       Please click on the this <a target="_blank" href="${link}">link</a> link to reset your password. <br/>
       If you did not request this, please ignore this email and your password will remain unchanged.<br/><br/>
       <br/>
-      <strong><em>Sanwo</em></strong>
+      <strong><em>Sanwo 💰 </em></strong>
     </div>`;
     await sendMail(user.email, "Sanwo Password Reset", message);
   }
