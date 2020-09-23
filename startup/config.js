@@ -7,7 +7,11 @@ module.exports = function (app, path) {
 
   const corsOptions = {
     // exposedHeaders: "x_auth_token",
-    origin: [config.get("origin"), "https://mymoneymydebts.herokuapp.com"],
+    origin: [
+      config.get("origin"),
+      "https://mymoneymydebts.herokuapp.com",
+      "https://wonderful-kalam-b22127.netlify.app",
+    ],
     credentials: true,
   };
 
