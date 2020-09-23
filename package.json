@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@hapi/joi": "^17.1.1",
+    "@knuckleswtf/scribe-express": "^0.2.0",
     "@sendgrid/mail": "^7.2.6",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
@@ -25,7 +26,6 @@
     "mongoose": "^5.10.0",
     "morgan": "~1.9.1",
     "node-cron": "^2.0.3",
-    "swagger-ui-express": "^4.1.4",
     "winston": "^3.3.3",
     "winston-mongodb": "^5.0.3"
   },
