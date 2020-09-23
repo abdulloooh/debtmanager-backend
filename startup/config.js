@@ -10,7 +10,7 @@ module.exports = function (app, path) {
     origin: [
       config.get("origin"),
       "https://mymoneymydebts.herokuapp.com",
-      "https://wonderful-kalam-b22127.netlify.app",
+      "https://objective-payne-026f30.netlify.app/",
     ],
     credentials: true,
   };
