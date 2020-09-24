@@ -10,7 +10,7 @@ const { Debt } = require("../models/debt");
 const { sendMail } = require("../models/mail");
 
 router.get("/one", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("username email");
+  const user = await User.findById(req.user._id).select("username email -_id");
   res.send(user);
 });
 
@@ -51,7 +51,14 @@ router.post("/", async (req, res, next) => {
 });
 
 router.put("/", auth, async (req, res, next) => {
-  const { error } = validateUser(req.body); //validate
+  const schema = Joi.object({
+    username: Joi.string().min(3).max(30).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(3).max(255),
+  });
+
+  const { error } = schema.validate(req.body);
+
   if (error) return res.status(406).send(error.details[0].message);
 
   let user = await User.findOne({
@@ -71,11 +78,11 @@ router.put("/", auth, async (req, res, next) => {
   user = await User.findById(req.user._id); //check if userID exist
   if (!user) return res.status(400).send("Invalid user");
 
-  if (req.body.username === req.body.password)
-    return res.status(406).send("Use a more secure password");
+  // if (req.body.username === req.body.password)
+  //   return res.status(406).send("Use a more secure password");
 
-  const salt = await bcrypt.genSalt(10);
-  user.password = await bcrypt.hash(req.body.password, salt); //hash password
+  // const salt = await bcrypt.genSalt(10);
+  // user.password = await bcrypt.hash(req.body.password, salt); //hash password
 
   user.username = req.body.username;
   user.email = req.body.email;
