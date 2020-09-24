@@ -9,6 +9,11 @@ const { validateUser, User } = require("../models/user");
 const { Debt } = require("../models/debt");
 const { sendMail } = require("../models/mail");
 
+router.get("/one", auth, async (req, res) => {
+  const user = await User.findById(req.user._id).select("username email");
+  res.send(user);
+});
+
 router.post("/", async (req, res, next) => {
   const { error } = validateUser(req.body); //validate
   if (error) return res.status(400).send(error.details[0].message);
