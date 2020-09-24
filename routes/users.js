@@ -38,6 +38,7 @@ router.post("/", async (req, res, next) => {
   // res.header("x_auth_token", token).send(_.pick(user, ["username"]));
   res.cookie("access_token", token, {
     httpOnly: true,
+    maxAge: 432000000,
     sameSite: app.get("env") === "development" ? true : "none",
     secure: app.get("env") === "development" ? false : true,
   });

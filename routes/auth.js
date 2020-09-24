@@ -23,6 +23,7 @@ router.post("/", async (req, res, next) => {
   res
     .cookie("access_token", token, {
       httpOnly: true,
+      maxAge: 432000000,
       // domain: "",
       sameSite: app.get("env") === "development" ? true : "none",
       secure: app.get("env") === "development" ? false : true,
