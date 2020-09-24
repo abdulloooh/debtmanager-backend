@@ -6,7 +6,7 @@ const { sendMultipleMails } = require("./models/mail");
 
 const todayDate = new Date(Date.now()).toDateString();
 module.exports = function () {
-  cron.schedule("0 10 * * *", async () => {
+  cron.schedule("0 12 * * *", async () => {
     const debts = await Debt.find({
       dateDue: { $lte: Date.now() },
     }).populate("user", ["username", "email"]);
