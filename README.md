@@ -25,7 +25,7 @@
 ### About Sanwo
 
 Sanwo is a debt management system for recording of debts owed to you and by you.
-Sanwo automatically calculates your debit and credit balance, prepares your record summary and alert you via your email daily on due debts (if any).
+Sanwo automatically calculates your debit and credit balance, prepares your record summary and alert you once after every due debts via your email.
 
 ### Built With
 
