@@ -3,17 +3,19 @@ const _ = require("lodash");
 const config = require("config");
 const { Debt } = require("./models/debt");
 const { sendMultipleMails } = require("./models/mail");
+const { User } = require("./models/user");
 
 const todayDate = new Date(Date.now()).toDateString();
 module.exports = function () {
   cron.schedule("0 9 * * *", async () => {
     const debts = await Debt.find({
       dateDue: { $lte: Date.now() },
+      dueAlertSent: false,
     }).populate("user", ["username", "email"]);
 
     //arange debts by  name, email and aggregated debt list
     const orderedDebts = [];
-    debts.map((debt) => {
+    debts.map(async (debt) => {
       const usernameExist = orderedDebts.findIndex(
         (d) => d.username === debt.user.username
       );
@@ -62,6 +64,12 @@ module.exports = function () {
 
     //send mail
     await sendMultipleMails(mailDetails);
+
+    //update alert status to sent
+    for (let debt of debts) {
+      debt.updateDueDebtsAlertStatus(true);
+      await debt.save();
+    }
   });
 };
 

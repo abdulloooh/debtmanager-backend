@@ -16,7 +16,12 @@ const debtSchema = new mongoose.Schema({
   dateDue: { type: Date, maxlength: 255, min: "2000-01-01", max: "3000-01-01" },
   status: { type: String, minlength: 2, maxlength: 2, required: true },
   user: { type: mongoose.Schema.Types.ObjectId, ref: "User", lowercase: true },
+  dueAlertSent: { type: Boolean, default: false },
 });
+
+debtSchema.methods.updateDueDebtsAlertStatus = function (status) {
+  this.dueAlertSent = status;
+};
 
 const Debt = mongoose.model("Debt", debtSchema);
 

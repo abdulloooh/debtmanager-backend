@@ -68,6 +68,8 @@ router.put("/:id", auth, verifyOwner, async (req, res) => {
   if (dateDue) debt.dateDue = dateDue;
   debt.status = status;
 
+  debt.updateDueDebtsAlertStatus(false);
+
   await debt.save();
 
   res.send(formatReturningData(debt));
