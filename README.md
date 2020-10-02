@@ -2,7 +2,7 @@
 <br />
 <p align="center">
   <a href="https://https://github.com/abdulloooh/debtmanager">
-    <img src="/public/logo192.png" alt="Logo" width="80" height="80">
+    <img src="/public/images/logo192.png" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">Sanwo</h3>
@@ -16,7 +16,7 @@
 
 ## Table of Contents
 
-- [About Sanwo](#about)
+- [About Sanwo](#about-sanwo)
 - [Built With](#built-with)
 - [Getting Started](#getting-started)
 - [Roadmap](#roadmap)
