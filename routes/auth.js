@@ -29,7 +29,10 @@ router.post("/", async (req, res, next) => {
       sameSite: app.get("env") === "development" ? true : "none",
       secure: app.get("env") === "development" ? false : true,
     })
-    .send(_.pick(user, ["username"]));
+    .send({
+      ..._.pick(user, ["username"]),
+      nextOfKin: user.nextOfKin ? true : false,
+    });
 });
 
 router.put("/password", auth, async (req, res) => {
