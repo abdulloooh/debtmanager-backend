@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   password: { type: String, minlength: 7, maxlength: 255 },
   resetPasswordToken: String,
   resetPasswordExpires: Date,
+  nextOfKin: { type: String, lowercase: true },
 });
 
 userSchema.methods.generateJwtToken = function () {

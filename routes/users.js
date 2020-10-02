@@ -55,6 +55,7 @@ router.put("/", auth, async (req, res, next) => {
     username: Joi.string().min(3).max(30).required(),
     email: Joi.string().email().required(),
     password: Joi.string().min(3).max(255),
+    nextOfKin: Joi.string().email().required(),
   });
 
   const { error } = schema.validate(req.body);
@@ -86,6 +87,7 @@ router.put("/", auth, async (req, res, next) => {
 
   user.username = req.body.username;
   user.email = req.body.email;
+  user.nextOfKin = req.body.nextOfKin;
 
   await user.save();
 
@@ -118,12 +120,29 @@ router.delete("/", auth, async (req, res, next) => {
   res.end();
 });
 
+router.post("/nextofkin", auth, async (req, res) => {
+  const schema = Joi.object({
+    nextOfKin: Joi.string().email().required(),
+  });
+
+  const { error } = schema.validate(req.body);
+  if (error) return res.status(406).send(error.details[0].message);
+
+  let user = await User.findById(req.user._id);
+  if (!user) return res.status(401).send("Invalid user");
+
+  user.nextOfKin = req.body.nextOfKin;
+  await user.save();
+
+  res.sendStatus(200);
+});
+
 router.post("/forgetpassword", async (req, res) => {
   const data = { ...req.body };
 
   const schema = Joi.object({
     username: Joi.string().min(3).max(30).required(),
-    email: Joi.string().email().required().required(),
+    email: Joi.string().email().required(),
   });
 
   const { error } = schema.validate(data);
