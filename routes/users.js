@@ -10,7 +10,9 @@ const { Debt } = require("../models/debt");
 const { sendMail } = require("../models/mail");
 
 router.get("/one", auth, async (req, res) => {
-  const user = await User.findById(req.user._id).select("username email -_id");
+  const user = await User.findById(req.user._id).select(
+    "username email nextOfKin -_id"
+  );
   res.send(user);
 });
 
