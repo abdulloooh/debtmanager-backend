@@ -11,7 +11,7 @@ const debtSchema = new mongoose.Schema({
     default: Date.now,
     maxlength: 255,
     min: "2000-01-01",
-    max: "3000-01-01",
+    max: "4000-01-01",
   },
   dateDue: { type: Date, maxlength: 255, min: "2000-01-01", max: "3000-01-01" },
   status: { type: String, minlength: 2, maxlength: 2, required: true },

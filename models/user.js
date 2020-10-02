@@ -17,6 +17,14 @@ const userSchema = new mongoose.Schema({
   resetPasswordToken: String,
   resetPasswordExpires: Date,
   nextOfKin: { type: String, lowercase: true },
+  lastAccess_plus_60days: {
+    type: Date,
+    default: Date.now() + 5.184e9,
+    maxlength: 255,
+    min: "2000-01-01",
+    max: "3000-01-01",
+  },
+  sixtyDaysReminderSent: { type: Boolean, default: false },
 });
 
 userSchema.methods.generateJwtToken = function () {
@@ -30,6 +38,10 @@ userSchema.methods.generateJwtToken = function () {
 userSchema.methods.generatePasswordReset = function () {
   this.resetPasswordToken = crypto.randomBytes(20).toString("hex");
   this.resetPasswordExpires = Date.now() + 900000; //expires in 15 minutes
+};
+
+userSchema.methods.updateSixtyDatsReminderStatus = function (status) {
+  this.sixtyDaysReminderSent = status;
 };
 
 const User = mongoose.model("User", userSchema);

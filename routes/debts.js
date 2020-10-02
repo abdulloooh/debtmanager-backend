@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const auth = require("../middlewares/auth");
+const { User } = require("../models/user");
 const verifyOwner = require("../middlewares/ownership");
 const _ = require("lodash");
 const {
@@ -26,6 +27,12 @@ router.get("/", auth, async (req, res) => {
     formattedDebts.push(clone);
   });
   formattedDebts = calculateTotal(formattedDebts);
+
+  //Update last access by user and set reminderSent back to false
+  const user = await User.findById(req.user._id);
+  user.updateSixtyDatsReminderStatus(false);
+  await user.save();
+
   res.send(formattedDebts);
 });
 
