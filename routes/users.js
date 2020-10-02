@@ -30,6 +30,8 @@ router.post("/", async (req, res, next) => {
         "User with same details already existed, try changing your username"
       );
 
+  if(req.body.username.toLowerCase() === "sanwo")
+    return res.status(400).send("Sanwo as username not allowed");
   if (req.body.username === req.body.password)
     return res.status(400).send("Use a more secure password");
 
