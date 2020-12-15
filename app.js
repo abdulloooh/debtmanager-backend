@@ -5,7 +5,7 @@ const winston = require("winston");
 const debug = require("debug")("mymoneymydebt-backend:server");
 const app = express();
 
-require("@knuckleswtf/scribe-express")(app);
+// require("@knuckleswtf/scribe-express")(app);
 require("./startup/prod")(app);
 require("./startup/errorHandler")(debug, winston);
 require("./startup/config")(app, path);

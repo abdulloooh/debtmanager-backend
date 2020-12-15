@@ -30,7 +30,7 @@ router.get("/", auth, async (req, res) => {
 
   //Update last access by user and set reminderSent back to false
   const user = await User.findById(req.user._id);
-  user.updateSixtyDatsReminderStatus(false);
+  user.updateSixtyDaysReminderStatus(false);
   await user.save();
 
   res.send(formattedDebts);

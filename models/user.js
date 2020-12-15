@@ -22,7 +22,7 @@ const userSchema = new mongoose.Schema({
     default: Date.now() + 5.184e9,
     maxlength: 255,
     min: "2000-01-01",
-    max: "3000-01-01",
+    // max: "3000-01-01",
   },
   sixtyDaysReminderSent: { type: Boolean, default: false },
 });
@@ -40,9 +40,11 @@ userSchema.methods.generatePasswordReset = function () {
   this.resetPasswordExpires = Date.now() + 900000; //expires in 15 minutes
 };
 
-userSchema.methods.updateSixtyDatsReminderStatus = function (status) {
+userSchema.methods.updateSixtyDaysReminderStatus = function (status) {
   this.sixtyDaysReminderSent = status;
+  this.lastAccess_plus_60days = Date.now() + 5.184e9;
 };
+
 
 const User = mongoose.model("User", userSchema);
 

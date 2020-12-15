@@ -79,9 +79,9 @@ module.exports = function () {
 
     // update alert status to sent
     for (let user of users) {
-      user.updateSixtyDatsReminderStatus(true);
+      user.updateSixtyDaysReminderStatus(true);
       await user.save();
-    }
+    }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
   });
 };
 
