@@ -13,11 +13,11 @@ COPY package*.json ./
 # RUN npm ci --only=production
 
 # BUNDLE app codes
-COPY . .
+# COPY . .   #for final product
 
 # expose port
-EXPOSE 8080
-EXPOSE 27017
+EXPOSE 4000
+# EXPOSE 27017
 
 # command to run
 CMD npm run dev
