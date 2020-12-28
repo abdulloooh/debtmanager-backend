@@ -17,9 +17,10 @@ WORKDIR /usr/src/app
 
 # expose port
 EXPOSE 4000
-# EXPOSE 27017
 
 # command to run
 CMD npm run dev
 
-# ref: https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+# refs:
+# https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+# https://medium.com/zenofai/how-to-build-a-node-js-and-mongodb-application-with-docker-containers-15e535baabf5
