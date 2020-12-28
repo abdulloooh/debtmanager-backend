@@ -5,7 +5,7 @@ WORKDIR /usr/src/app
 
 # NPM already preinstalled with node image
 # so copy package.json and packagelock.json next
-COPY package*.json ./
+# COPY package*.json ./
 
 # install packages with NPM
 # RUN npm install
@@ -13,7 +13,7 @@ COPY package*.json ./
 # RUN npm ci --only=production
 
 # BUNDLE app codes
-# COPY . .   #for final product
+# COPY . .   
 
 # expose port
 EXPOSE 4000

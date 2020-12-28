@@ -2,9 +2,10 @@ version: "3.8"
 services:
   sanwo:
     container_name: sanwo
-    image: sanwo
+    image: abdulloooh/sanwo
     restart: always
-    volumes: .
+    volumes:
+      - /home/abdulloooh/bin/coding/personal/mymoneymydebt_backend:/usr/src/app
     build: .
     ports:
       - "4000:4000"
