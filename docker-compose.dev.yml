@@ -4,12 +4,15 @@ services:
     container_name: sanwo
     image: abdulloooh/sanwo
     restart: always
-    build: .
+    volumes:
+      - /home/abdulloooh/bin/coding/personal/mymoneymydebt_backend:/usr/src/app
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
       - "4000:4000"
     links:
       - mongo
-    dockerfile: Dockerfile
   mongo:
     container_name: mongo
     image: mongo

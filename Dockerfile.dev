@@ -1,0 +1,37 @@
+FROM node:12-alpine
+
+RUN npm install -g nodemon
+
+# working directory
+WORKDIR /usr/src/app
+
+# expose port
+EXPOSE 4000
+
+# command to run
+CMD npm run dev
+
+# refs:
+# https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+# https://medium.com/zenofai/how-to-build-a-node-js-and-mongodb-application-with-docker-containers-15e535baabf5
+# https://derickbailey.com/2017/03/09/selecting-a-node-js-image-for-docker/
+# https://twg.io/blog/things-i-wish-i-knew-about-docker-before-i-started-using-it/
+
+# To build while specifying docker-compose
+# $ docker-compose -f docker-compose.dev.yml up
+# no cache
+# $ docker-compose build — no-cache
+
+# ssh
+
+# To ssh into a particular container:
+
+# $ docker exec -it <container_id> sh
+# It’s possible that your container has bash installed, in which case you can try:
+
+# $ docker exec -it <container_id> /bin/bash
+# With docker compose, you can ssh into a container with
+
+# $ docker-compose exec <container_id> sh
+
+# might need to specify compose file with `-f <docker-compose file in use>`
