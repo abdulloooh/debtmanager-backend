@@ -1,3 +1,4 @@
+const config = require("config");
 require("express-async-errors");
 require("winston-mongodb");
 
@@ -7,7 +8,7 @@ module.exports = function (debug, winston) {
       new winston.transports.File({ filename: "error.log", level: "error" }),
       new winston.transports.File({ filename: "combined.log", level: "info" }),
       new winston.transports.MongoDB({
-        db: "mongodb://localhost/debtmanager",
+        db: config.get("db_conn"),
         level: "warn",
       }),
     ],

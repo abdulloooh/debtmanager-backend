@@ -16,6 +16,7 @@ CMD npm run dev
 # https://medium.com/zenofai/how-to-build-a-node-js-and-mongodb-application-with-docker-containers-15e535baabf5
 # https://derickbailey.com/2017/03/09/selecting-a-node-js-image-for-docker/
 # https://twg.io/blog/things-i-wish-i-knew-about-docker-before-i-started-using-it/
+# https://docs.docker.com/compose/production/
 
 # To build while specifying docker-compose
 # $ docker-compose -f docker-compose.dev.yml up
@@ -25,13 +26,18 @@ CMD npm run dev
 # ssh
 
 # To ssh into a particular container:
-
 # $ docker exec -it <container_id> sh
 # It’s possible that your container has bash installed, in which case you can try:
-
 # $ docker exec -it <container_id> /bin/bash
 # With docker compose, you can ssh into a container with
-
 # $ docker-compose exec <container_id> sh
-
 # might need to specify compose file with `-f <docker-compose file in use>`
+
+
+#PRODCUTION
+
+# Deploying changes
+# When you make changes to your app code, remember to rebuild your image and recreate your app’s containers. To redeploy a service called web, use:
+# $ docker-compose build web
+# $ docker-compose up --no-deps -d web
+# This first rebuilds the image for web and then stop, destroy, and recreate just the web service. The --no-deps flag prevents Compose from also recreating any services which web depends on.
