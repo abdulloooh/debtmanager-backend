@@ -36,6 +36,9 @@ CMD npm run dev
 
 #PRODCUTION
 
+# https://dev.to/alex_barashkov/using-docker-for-nodejs-in-development-and-production-3cgp
+# https://medium.com/better-programming/build-your-docker-images-automatically-when-you-push-on-github-18e80ece76af
+
 # Deploying changes
 # When you make changes to your app code, remember to rebuild your image and recreate your app’s containers. To redeploy a service called web, use:
 # $ docker-compose build web

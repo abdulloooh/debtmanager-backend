@@ -4,8 +4,9 @@ services:
     container_name: sanwo
     image: abdulloooh/sanwo
     restart: always
+    # /home/abdulloooh/bin/coding/personal/mymoneymydebt_backend
     volumes:
-      - /home/abdulloooh/bin/coding/personal/mymoneymydebt_backend:/usr/src/app
+      - .:/usr/src/app
     build:
       context: .
       dockerfile: Dockerfile.dev

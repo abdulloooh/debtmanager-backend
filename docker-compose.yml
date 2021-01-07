@@ -5,16 +5,17 @@ services:
     image: abdulloooh/sanwo
     restart: always
     build: .
-    ports:
-      - "4000:4000"
+    # ports:
+    #   - "4000:4000"
     links:
       - mongo
     dockerfile: Dockerfile
+    # command: npm start
   mongo:
     container_name: mongo
     image: mongo
-    volumes:
-      - /var/lib/mongodb:/data/db
-      - /var/log/mongodb/mongod.log:/data/log
-    ports:
-      - "27017:27017"
+    # volumes:
+    #   - /var/lib/mongodb:/data/db
+    #   - /var/log/mongodb/mongod.log:/data/log
+    # ports:
+    #   - "27017:27017"

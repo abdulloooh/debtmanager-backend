@@ -1,7 +1,5 @@
 FROM node:12-alpine
 
-RUN npm install -g nodemon
-
 # working directory
 WORKDIR /usr/src/app
 
@@ -18,7 +16,7 @@ RUN npm ci --only=production
 COPY . .   
 
 # expose port
-EXPOSE 4000
+# EXPOSE 4000
 
 # command to run
-CMD npm run dev
+CMD ["npm", "start"]
