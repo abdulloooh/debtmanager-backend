@@ -38,9 +38,11 @@ CMD npm run dev
 
 # https://dev.to/alex_barashkov/using-docker-for-nodejs-in-development-and-production-3cgp
 # https://medium.com/better-programming/build-your-docker-images-automatically-when-you-push-on-github-18e80ece76af
+# https://devcenter.heroku.com/articles/container-registry-and-runtime
 
 # Deploying changes
 # When you make changes to your app code, remember to rebuild your image and recreate your app’s containers. To redeploy a service called web, use:
 # $ docker-compose build web
 # $ docker-compose up --no-deps -d web
 # This first rebuilds the image for web and then stop, destroy, and recreate just the web service. The --no-deps flag prevents Compose from also recreating any services which web depends on.
+
